@@ -10,33 +10,154 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AwardsRouteImport } from './routes/awards'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DesignRouteImport } from './routes/design'
+import { Route as MotionRouteImport } from './routes/motion'
+import { Route as OriginalsRouteImport } from './routes/originals'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as StudioRouteImport } from './routes/studio'
+import { Route as FilmsIndexRouteImport } from './routes/films.index'
+import { Route as FilmsSlugRouteImport } from './routes/films.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AwardsRoute = AwardsRouteImport.update({
+  id: '/awards',
+  path: '/awards',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DesignRoute = DesignRouteImport.update({
+  id: '/design',
+  path: '/design',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MotionRoute = MotionRouteImport.update({
+  id: '/motion',
+  path: '/motion',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OriginalsRoute = OriginalsRouteImport.update({
+  id: '/originals',
+  path: '/originals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioRoute = StudioRouteImport.update({
+  id: '/studio',
+  path: '/studio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FilmsIndexRoute = FilmsIndexRouteImport.update({
+  id: '/films/',
+  path: '/films/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FilmsSlugRoute = FilmsSlugRouteImport.update({
+  id: '/films/$slug',
+  path: '/films/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/awards': typeof AwardsRoute
+  '/contact': typeof ContactRoute
+  '/design': typeof DesignRoute
+  '/motion': typeof MotionRoute
+  '/originals': typeof OriginalsRoute
+  '/profile': typeof ProfileRoute
+  '/studio': typeof StudioRoute
+  '/films/$slug': typeof FilmsSlugRoute
+  '/films/': typeof FilmsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/awards': typeof AwardsRoute
+  '/contact': typeof ContactRoute
+  '/design': typeof DesignRoute
+  '/motion': typeof MotionRoute
+  '/originals': typeof OriginalsRoute
+  '/profile': typeof ProfileRoute
+  '/studio': typeof StudioRoute
+  '/films/$slug': typeof FilmsSlugRoute
+  '/films': typeof FilmsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/awards': typeof AwardsRoute
+  '/contact': typeof ContactRoute
+  '/design': typeof DesignRoute
+  '/motion': typeof MotionRoute
+  '/originals': typeof OriginalsRoute
+  '/profile': typeof ProfileRoute
+  '/studio': typeof StudioRoute
+  '/films/$slug': typeof FilmsSlugRoute
+  '/films/': typeof FilmsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/awards'
+    | '/contact'
+    | '/design'
+    | '/motion'
+    | '/originals'
+    | '/profile'
+    | '/studio'
+    | '/films/$slug'
+    | '/films/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/awards'
+    | '/contact'
+    | '/design'
+    | '/motion'
+    | '/originals'
+    | '/profile'
+    | '/studio'
+    | '/films/$slug'
+    | '/films'
+  id:
+    | '__root__'
+    | '/'
+    | '/awards'
+    | '/contact'
+    | '/design'
+    | '/motion'
+    | '/originals'
+    | '/profile'
+    | '/studio'
+    | '/films/$slug'
+    | '/films/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AwardsRoute: typeof AwardsRoute
+  ContactRoute: typeof ContactRoute
+  DesignRoute: typeof DesignRoute
+  MotionRoute: typeof MotionRoute
+  OriginalsRoute: typeof OriginalsRoute
+  ProfileRoute: typeof ProfileRoute
+  StudioRoute: typeof StudioRoute
+  FilmsSlugRoute: typeof FilmsSlugRoute
+  FilmsIndexRoute: typeof FilmsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +169,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/awards': {
+      id: '/awards'
+      path: '/awards'
+      fullPath: '/awards'
+      preLoaderRoute: typeof AwardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/design': {
+      id: '/design'
+      path: '/design'
+      fullPath: '/design'
+      preLoaderRoute: typeof DesignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/motion': {
+      id: '/motion'
+      path: '/motion'
+      fullPath: '/motion'
+      preLoaderRoute: typeof MotionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/originals': {
+      id: '/originals'
+      path: '/originals'
+      fullPath: '/originals'
+      preLoaderRoute: typeof OriginalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio': {
+      id: '/studio'
+      path: '/studio'
+      fullPath: '/studio'
+      preLoaderRoute: typeof StudioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/films/': {
+      id: '/films/'
+      path: '/films'
+      fullPath: '/films/'
+      preLoaderRoute: typeof FilmsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/films/$slug': {
+      id: '/films/$slug'
+      path: '/films/$slug'
+      fullPath: '/films/$slug'
+      preLoaderRoute: typeof FilmsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AwardsRoute: AwardsRoute,
+  ContactRoute: ContactRoute,
+  DesignRoute: DesignRoute,
+  MotionRoute: MotionRoute,
+  OriginalsRoute: OriginalsRoute,
+  ProfileRoute: ProfileRoute,
+  StudioRoute: StudioRoute,
+  FilmsSlugRoute: FilmsSlugRoute,
+  FilmsIndexRoute: FilmsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

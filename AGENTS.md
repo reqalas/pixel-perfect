@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- All site content (projects, awards, contact, galleries) lives in src/data/site.ts so the owner edits one file.
+- Shared UI (header, footer, lightbox, YouTube click-to-play) lives in src/components/site.tsx to keep pages thin.
