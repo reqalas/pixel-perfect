@@ -59,7 +59,7 @@ function Film() {
         <h2 className="font-wide text-[11px] text-muted-foreground">Credits</h2>
         <dl className="mt-6 grid grid-cols-2 gap-4 text-sm">
           <dt className="text-muted-foreground">{p.role}</dt><dd>Seymur Abdullayev</dd>
-          {p.credits?.map((c) => <><dt key={c.label} className="text-muted-foreground">{c.label}</dt><dd>{c.value}</dd></>)}
+          {p.credits?.map((c) => [<dt key={c.label + "t"} className="text-muted-foreground">{c.label}</dt>, <dd key={c.label + "d"}>{c.value}</dd>])}
         </dl>
       </section>
       <Link to="/films/$slug" params={{ slug: next.slug }} className="group mx-auto mt-32 block max-w-5xl border-t border-border px-6 pt-12">
