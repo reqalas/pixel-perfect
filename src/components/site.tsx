@@ -89,7 +89,7 @@ export function Reveal({ children, className = "" }: { children: ReactNode; clas
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = ref.current; if (!el) return;
-    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.classList.add("is-visible"); io.disconnect(); } }, { threshold: 0.12 });
+    const io = new IntersectionObserver(([e]) => { if (e?.isIntersecting) { el.classList.add("is-visible"); io.disconnect(); } }, { threshold: 0.12 });
     io.observe(el); return () => io.disconnect();
   }, []);
   return <div ref={ref} className={`reveal ${className}`}>{children}</div>;
@@ -170,9 +170,9 @@ export function Lightbox({ items }: { items: { src: string; caption: string }[] 
         ))}
       </div>
       {i !== null && (
-        <div role="dialog" aria-modal="true" aria-label={items[i].caption} className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-overlay p-6 page-enter" onClick={() => setI(null)}>
-          <img src={items[i].src} alt={items[i].caption} className="max-h-[80vh] max-w-full object-contain" />
-          <p className="mt-6 font-wide text-[10px] text-muted-foreground">{items[i].caption} — {i + 1}/{items.length}</p>
+        <div role="dialog" aria-modal="true" aria-label={items[i]!.caption} className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-overlay p-6 page-enter" onClick={() => setI(null)}>
+          <img src={items[i]!.src} alt={items[i]!.caption} className="max-h-[80vh] max-w-full object-contain" />
+          <p className="mt-6 font-wide text-[10px] text-muted-foreground">{items[i]!.caption} — {i + 1}/{items.length}</p>
           <p className="mt-2 text-xs text-muted-foreground">← → to navigate · Esc to close</p>
         </div>
       )}
