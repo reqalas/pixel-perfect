@@ -31,12 +31,12 @@ export const site = {
   ],
 };
 
-export type Category = "animation" | "documentary" | "international";
+export type Category = "international" | "animation" | "documentary";
 
 export const categories: { id: Category; label: string }[] = [
+  { id: "international", label: "International Productions" },
   { id: "animation", label: "Animation" },
   { id: "documentary", label: "Documentary & Film" },
-  { id: "international", label: "International Documentary" },
 ];
 
 export type Project = {
@@ -54,11 +54,28 @@ export type Project = {
   stills: string[];
   awards: string[];
   credits?: { label: string; value: string }[];
+  comingSoon?: boolean; // shown as "Coming soon" until the link exists
 };
 
 const A = stillAnim, D = stillDoc, H = hero;
 
 export const projects: Project[] = [
+  // --- INTERNATIONAL PRODUCTIONS ---
+  { slug: "kontrapunkt", title: "Kontrapunkt", year: "Soon", category: "international", role: "Motion Designer",
+    description: "A new international production, coming soon.",
+    youtubeUrl: "", // TODO: paste the link when the film is released
+    thumbnail: "", stills: [], awards: [], comingSoon: true },
+  { slug: "buried-stories", title: "Buried Stories: The Last Train East", year: "—", category: "international", role: "Motion Designer",
+    description: "An international documentary following forgotten journeys.", quote: "Some tracks lead only one way.",
+    youtubeUrl: "https://www.youtube.com/watch?v=lD0u7SIevfo", thumbnail: yt("lD0u7SIevfo"), stills: [yt("lD0u7SIevfo")], awards: [] },
+  { slug: "shadow-of-the-cross", title: "Shadow of the Cross", year: "—", category: "international", role: "Motion Designer",
+    description: "An international documentary.", youtubeUrl: "https://www.youtube.com/watch?v=9R_51vtcAhA", thumbnail: yt("9R_51vtcAhA"), stills: [yt("9R_51vtcAhA")], awards: [] },
+  { slug: "belt-and-road", title: "China's Global Vision: Belt and Road Initiative", year: "—", category: "international", role: "Motion Designer",
+    description: "An international documentary on the Belt and Road Initiative.", youtubeUrl: "https://www.youtube.com/watch?v=9ldBevJUaaY", thumbnail: yt("9ldBevJUaaY"), stills: [yt("9ldBevJUaaY")], awards: [] },
+  { slug: "los-aviadores-de-ganja", title: "Los Aviadores de Ganja", year: "—", category: "international", role: "Motion Designer",
+    description: "An international documentary.", youtubeUrl: "https://www.youtube.com/watch?v=d7vloI4zaBQ", thumbnail: yt("d7vloI4zaBQ"), stills: [yt("d7vloI4zaBQ")], awards: [] },
+  { slug: "frontline-sudan", title: "Frontline: Sudan – Fight for Survival", year: "—", category: "international", role: "Motion Designer",
+    description: "A humanitarian documentary.", youtubeUrl: "https://www.youtube.com/watch?v=W8KPWJkUD2w", thumbnail: yt("W8KPWJkUD2w"), stills: [yt("W8KPWJkUD2w")], awards: [] },
   // --- ANIMATION ---
   { slug: "birden-olsek", title: "Birdən Ölsək", year: "2023", category: "animation", role: "Animator",
     description: "An animated music video about the fragility of the moments we leave unsaid.",
@@ -90,18 +107,6 @@ export const projects: Project[] = [
     description: "A political documentary.", youtubeUrl: "https://www.youtube.com/watch?v=m-zgaO0tsQQ", thumbnail: yt("m-zgaO0tsQQ"), stills: [yt("m-zgaO0tsQQ")], awards: [] },
   { slug: "eagle-at-the-summit", title: "The Eagle at the Summit", original: "Qartal Zirvədə", year: "—", category: "documentary", role: "Motion Designer",
     description: "A documentary on national identity.", youtubeUrl: "https://www.youtube.com/watch?v=L1to1Q_yWNU", thumbnail: yt("L1to1Q_yWNU"), stills: [yt("L1to1Q_yWNU")], awards: [] },
-  { slug: "frontline-sudan", title: "Frontline: Sudan – Fight for Survival", year: "—", category: "documentary", role: "Motion Designer",
-    description: "A humanitarian documentary.", youtubeUrl: "https://www.youtube.com/watch?v=W8KPWJkUD2w", thumbnail: yt("W8KPWJkUD2w"), stills: [yt("W8KPWJkUD2w")], awards: [] },
-  // --- INTERNATIONAL ---
-  { slug: "buried-stories", title: "Buried Stories: The Last Train East", year: "—", category: "international", role: "Motion Designer",
-    description: "An international documentary following forgotten journeys.", quote: "Some tracks lead only one way.",
-    youtubeUrl: "https://www.youtube.com/watch?v=lD0u7SIevfo", thumbnail: yt("lD0u7SIevfo"), stills: [yt("lD0u7SIevfo")], awards: [] },
-  { slug: "shadow-of-the-cross", title: "Shadow of the Cross", year: "—", category: "international", role: "Motion Designer",
-    description: "An international documentary.", youtubeUrl: "https://www.youtube.com/watch?v=9R_51vtcAhA", thumbnail: yt("9R_51vtcAhA"), stills: [yt("9R_51vtcAhA")], awards: [] },
-  { slug: "belt-and-road", title: "China's Global Vision: Belt and Road Initiative", year: "—", category: "international", role: "Motion Designer",
-    description: "An international documentary on the Belt and Road Initiative.", youtubeUrl: "https://www.youtube.com/watch?v=9ldBevJUaaY", thumbnail: yt("9ldBevJUaaY"), stills: [yt("9ldBevJUaaY")], awards: [] },
-  { slug: "los-aviadores-de-ganja", title: "Los Aviadores de Ganja", year: "—", category: "international", role: "Motion Designer",
-    description: "An international documentary.", youtubeUrl: "https://www.youtube.com/watch?v=d7vloI4zaBQ", thumbnail: yt("d7vloI4zaBQ"), stills: [yt("d7vloI4zaBQ")], awards: [] },
 ];
 
 export const featuredSlugs = ["birden-olsek", "balta", "khojaly-speaks", "buried-stories", "novum", "narcotrap"];
