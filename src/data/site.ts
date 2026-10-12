@@ -62,7 +62,7 @@ const A = stillAnim, D = stillDoc, H = hero;
 export const projects: Project[] = [
   // --- INTERNATIONAL PRODUCTIONS ---
   { slug: "kontrapunkt", title: "Kontrapunkt", year: "Soon", category: "international", role: "Motion Designer",
-    description: "A new international production, coming soon.",
+    description: "A new international production.",
     youtubeUrl: "", // TODO: paste the link when the film is released
     thumbnail: "", stills: [], awards: [], comingSoon: true },
   { slug: "buried-stories", title: "Buried Stories: The Last Train East", year: "—", category: "international", role: "Motion Designer",

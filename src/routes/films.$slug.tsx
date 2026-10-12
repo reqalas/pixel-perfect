@@ -32,19 +32,19 @@ function Film() {
   const { p, next } = Route.useLoaderData();
   return (
     <article>
-      <div className="relative h-[80svh]">
+      <div className={`relative ${p.thumbnail ? "h-[80svh]" : "h-[54svh]"}`}>
         {p.thumbnail
           ? <img src={p.thumbnail} alt={`${p.title} cover`} className="h-full w-full object-cover" />
           : <div className="absolute inset-0 bg-plate" />}
         <div className="absolute inset-0 bg-fade" />
         {p.comingSoon && (
-          <div className="absolute inset-0 flex items-center justify-center">
+          <div className="absolute inset-x-0 top-28 flex justify-center">
             <span className="font-wide text-[10px] text-ember">Coming soon</span>
           </div>
         )}
       </div>
       <header className="mx-auto -mt-40 max-w-5xl px-6 relative">
-        <p className="font-wide text-[10px] text-ember">{p.year}</p>
+        {!p.comingSoon && <p className="font-wide text-[10px] text-ember">{p.year}</p>}
         <h1 className="mt-4 font-wide text-3xl leading-tight tracking-[0.16em] md:text-5xl">{p.title}</h1>
         {p.original && <p className="mt-3 font-serif text-2xl italic text-muted-foreground">{p.original}</p>}
         <p className="mt-8 max-w-2xl text-lg leading-relaxed">{p.description}</p>
@@ -57,7 +57,7 @@ function Film() {
         )}
       </header>
       {p.youtubeUrl && <section className="mx-auto mt-20 max-w-6xl px-6"><YouTube url={p.youtubeUrl} title={p.title} poster={p.thumbnail} /></section>}
-      <Quote>{p.quote ?? p.title}</Quote>
+      {p.quote && <Quote>{p.quote}</Quote>}
       {p.stills.length > (p.youtubeUrl ? 0 : 1) && (
         <section className="mx-auto grid max-w-[1600px] gap-4 px-6 md:grid-cols-2 md:px-10">
           {p.stills.slice(p.youtubeUrl ? 0 : 1).map((s, i) => (
