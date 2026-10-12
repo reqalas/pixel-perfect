@@ -33,8 +33,15 @@ function Film() {
   return (
     <article>
       <div className="relative h-[80svh]">
-        <img src={p.thumbnail} alt={`${p.title} cover`} className="h-full w-full object-cover" />
+        {p.thumbnail
+          ? <img src={p.thumbnail} alt={`${p.title} cover`} className="h-full w-full object-cover" />
+          : <div className="absolute inset-0 bg-plate" />}
         <div className="absolute inset-0 bg-fade" />
+        {p.comingSoon && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="font-wide text-[10px] text-ember">Coming soon</span>
+          </div>
+        )}
       </div>
       <header className="mx-auto -mt-40 max-w-5xl px-6 relative">
         <p className="font-wide text-[10px] text-ember">{p.year}</p>
@@ -51,13 +58,15 @@ function Film() {
       </header>
       {p.youtubeUrl && <section className="mx-auto mt-20 max-w-6xl px-6"><YouTube url={p.youtubeUrl} title={p.title} poster={p.thumbnail} /></section>}
       <Quote>{p.quote ?? p.title}</Quote>
-      <section className="mx-auto grid max-w-[1600px] gap-4 px-6 md:grid-cols-2 md:px-10">
-        {p.stills.slice(p.youtubeUrl ? 0 : 1).map((s, i) => (
-          <Reveal key={i} className={i === 0 ? "md:col-span-2" : ""}>
-            <img src={s} alt={`${p.title} still ${i + 1}`} loading="lazy" className="aspect-video w-full object-cover" />
-          </Reveal>
-        ))}
-      </section>
+      {p.stills.length > (p.youtubeUrl ? 0 : 1) && (
+        <section className="mx-auto grid max-w-[1600px] gap-4 px-6 md:grid-cols-2 md:px-10">
+          {p.stills.slice(p.youtubeUrl ? 0 : 1).map((s, i) => (
+            <Reveal key={i} className={i === 0 ? "md:col-span-2" : ""}>
+              <img src={s} alt={`${p.title} still ${i + 1}`} loading="lazy" className="aspect-video w-full object-cover" />
+            </Reveal>
+          ))}
+        </section>
+      )}
       <section className="mx-auto mt-24 max-w-5xl px-6">
         <h2 className="font-wide text-[11px] text-muted-foreground">Credits</h2>
         <dl className="mt-6 grid grid-cols-2 gap-4 text-sm">
