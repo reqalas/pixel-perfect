@@ -14,7 +14,7 @@ function Profile() {
     <>
       <PageHero eyebrow="Profile" title="Seymur Abdullayev" />
       <section className="mx-auto grid max-w-[1600px] gap-16 px-6 md:grid-cols-[2fr_3fr] md:px-10">
-        <img src={images.portrait} alt="Portrait of Seymur Abdullayev" width={896} height={1152} className="aspect-[4/5] w-full object-cover" />
+        <img src={images.portrait} alt="Portrait of Seymur Abdullayev" width={1440} height={1920} className="aspect-[3/4] w-full object-cover" />
         <div className="space-y-10">
           <p className="font-serif text-2xl leading-relaxed md:text-3xl">Seymur Abdullayev is a director, 2D & 3D animation artist, motion designer, and screenwriter based in Baku, Azerbaijan. He is the founder of Piktolix, an animation studio built to amplify creative freedom within the Azerbaijani animation industry. His years working in television, alongside the Crambone animation team, were a formative phase in shaping his artistic voice.</p>
           <p className="leading-relaxed text-muted-foreground">Creative Director, Animator & Motion Designer with 8+ years of multimedia experience. Founder of Piktolix, delivering international-standard animation and motion graphics. Contributed as an animator to multiple award-winning projects and currently leads two original animated series.</p>
