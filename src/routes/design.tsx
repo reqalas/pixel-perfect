@@ -7,7 +7,13 @@ export const Route = createFileRoute("/design")({
   component: () => (
     <>
       <PageHero eyebrow="Design & Character Art" title="Design" intro="Characters, storyboards, backgrounds and graphic work." />
-      <div className="mx-auto max-w-[1600px] px-6 md:px-10"><Lightbox items={designWork} /></div>
+      <div className="mx-auto max-w-[1600px] px-6 md:px-10">
+        {designWork.length > 0 ? (
+          <Lightbox items={designWork} />
+        ) : (
+          <p className="font-wide text-[10px] text-muted-foreground">Gallery coming soon.</p>
+        )}
+      </div>
     </>
   ),
 });

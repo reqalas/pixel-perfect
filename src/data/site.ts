@@ -143,14 +143,7 @@ export const press: { title: string; href: string }[] = []; // TODO: add press l
 
 export const motionWork: { src: string; caption: string }[] = []; // TODO: add real motion design stills
 
-export const designWork = [
-  { src: A, caption: "Character design" },
-  { src: H, caption: "Vector background" },
-  { src: D, caption: "Storyboard frame" },
-  { src: A, caption: "Character sheet" },
-  { src: H, caption: "Social campaign" },
-  { src: D, caption: "Illustration" },
-];
+export const designWork: { src: string; caption: string }[] = []; // TODO: add real design & character art
 
 export const youtubeId = (url: string) => url.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/)?.[1] ?? "";
 export const vimeoId = (url: string) => url.match(/vimeo\.com\/(?:video\/)?(\d+)/)?.[1] ?? "";
