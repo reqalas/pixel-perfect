@@ -4,8 +4,6 @@
 // ============================================================
 import hero from "@/assets/hero.jpg";
 import portrait from "@/assets/portrait.jpg.asset.json";
-import stillAnim from "@/assets/still-animation.jpg";
-import stillDoc from "@/assets/still-doc.jpg";
 import coverNovum from "@/assets/cover-novum.png.asset.json";
 import coverBalta from "@/assets/cover-balta.png.asset.json";
 import coverYerli from "@/assets/cover-yerli.png.asset.json";
@@ -14,7 +12,7 @@ import maskarabaz from "@/assets/maskarabaz.jpg.asset.json";
 
 const yt = (id: string) => `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
 
-export const images = { hero, portrait: portrait.url, stillAnim, stillDoc };
+export const images = { hero, portrait: portrait.url };
 
 export const site = {
   name: "Seymur Abdullayev",
@@ -59,7 +57,6 @@ export type Project = {
   comingSoon?: boolean; // shown as "Coming soon" until the link exists
 };
 
-const A = stillAnim, D = stillDoc, H = hero;
 
 export const projects: Project[] = [
   // --- INTERNATIONAL PRODUCTIONS ---
@@ -82,8 +79,8 @@ export const projects: Project[] = [
   { slug: "birden-olsek", title: "Birdən Ölsək", year: "2023", category: "animation", role: "Animator",
     description: "An animated music video about the fragility of the moments we leave unsaid.",
     quote: "What if tomorrow never comes?",
-    youtubeUrl: "", // TODO
-    thumbnail: A, stills: [A, H, D], awards: ["Winner, 1st Place — ANIMA Festival 2023"] },
+    youtubeUrl: "https://www.youtube.com/watch?v=fU4V_Y8_Xwc",
+    thumbnail: yt("fU4V_Y8_Xwc"), stills: [yt("fU4V_Y8_Xwc")], awards: ["Winner, 1st Place — ANIMA Festival 2023"] },
   { slug: "balta", title: "Balta", year: "2018–2021", category: "animation", role: "2D Animator / Character Artist",
     description: "An animated project that grew into one of Azerbaijan's most recognised online series.",
     quote: "Small blade, sharp story.",
