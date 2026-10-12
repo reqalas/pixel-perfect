@@ -7,7 +7,13 @@ export const Route = createFileRoute("/motion")({
   component: () => (
     <>
       <PageHero eyebrow="Motion Design & Broadcast" title="Motion" intro="Promos, titles and broadcast packages for Anewz TV (in collaboration with CIBC) and Xezer TV." />
-      <div className="mx-auto max-w-[1600px] px-6 md:px-10"><Lightbox items={motionWork} /></div>
+      <div className="mx-auto max-w-[1600px] px-6 md:px-10">
+        {motionWork.length > 0 ? (
+          <Lightbox items={motionWork} />
+        ) : (
+          <p className="font-wide text-[10px] text-muted-foreground">Gallery coming soon.</p>
+        )}
+      </div>
     </>
   ),
 });
