@@ -154,13 +154,13 @@ export function VideoBackground({ url, start }: { url: string; start: number }) 
         send("seekTo", [start, 1]);
         send("playVideo");
       }
-      if (data?.event === "onStateChange" && data.info === 1) setPlaying(true);
+      if (data?.event === "onStateChange" && data.info === 1) send("mute");
       if (data?.event === "onStateChange" && data.info === 0) {
         send("seekTo", [start, 1]);
         send("playVideo");
       }
       if (data?.event === "infoDelivery") {
-        if (data.info?.playerState === 1) setPlaying(true);
+        if (data.info?.playerState === 1) send("mute");
         // YouTube's native loop can return to zero; keep every repeat at the chosen start.
         if (typeof data.info?.currentTime === "number" && data.info.currentTime < start - 0.5) {
           send("seekTo", [start, 1]);
