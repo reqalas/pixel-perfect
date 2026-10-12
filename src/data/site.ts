@@ -141,14 +141,7 @@ export const awards = [
 
 export const press: { title: string; href: string }[] = []; // TODO: add press links
 
-export const motionWork = [
-  { src: H, caption: "Anewz TV × CIBC — Broadcast package" },
-  { src: D, caption: "Xezer TV — Promo" },
-  { src: A, caption: "Title sequence" },
-  { src: D, caption: "Anewz TV — News opener" },
-  { src: H, caption: "Xezer TV — Station ident" },
-  { src: A, caption: "Lower thirds system" },
-];
+export const motionWork: { src: string; caption: string }[] = []; // TODO: add real motion design stills
 
 export const designWork = [
   { src: A, caption: "Character design" },
