@@ -30,18 +30,29 @@ export const Route = createFileRoute("/films/$slug")({
 
 function Film() {
   const { p, next } = Route.useLoaderData();
+  const poster = !p.thumbnail; // no cover yet — the title itself becomes the poster
   return (
     <article>
-      <div className="relative h-[80svh]">
-        <img src={p.thumbnail} alt={`${p.title} cover`} className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-fade" />
-      </div>
-      <header className="mx-auto -mt-40 max-w-5xl px-6 relative">
-        <p className="font-wide text-[10px] text-ember">{p.year}</p>
-        <h1 className="mt-4 font-wide text-3xl leading-tight tracking-[0.16em] md:text-5xl">{p.title}</h1>
-        {p.original && <p className="mt-3 font-serif text-2xl italic text-muted-foreground">{p.original}</p>}
-        <p className="mt-8 max-w-2xl text-lg leading-relaxed">{p.description}</p>
-        <p className="mt-4 font-wide text-[10px] text-muted-foreground">My role — <span className="text-foreground">{p.role}</span></p>
+      {poster ? (
+        <div className="relative flex h-[62svh] flex-col items-center justify-center overflow-hidden border-b border-border px-6 text-center">
+          <div className="absolute inset-0 bg-plate" />
+          <p className="relative font-wide text-[10px] text-ember">{p.comingSoon ? "Coming soon" : p.year}</p>
+          <h1 className="relative mt-7 font-wide text-3xl leading-tight tracking-[0.16em] md:text-6xl">{p.title}</h1>
+          {p.original && <p className="relative mt-4 font-serif text-2xl italic text-muted-foreground">{p.original}</p>}
+          <p className="relative mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">{p.description}</p>
+        </div>
+      ) : (
+        <div className="relative h-[80svh]">
+          <img src={p.thumbnail} alt={`${p.title} cover`} className="h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-fade" />
+        </div>
+      )}
+      <header className={`mx-auto max-w-5xl px-6 relative ${poster ? "mt-16" : "-mt-40"}`}>
+        {!poster && <p className="font-wide text-[10px] text-ember">{p.year}</p>}
+        {!poster && <h1 className="mt-4 font-wide text-3xl leading-tight tracking-[0.16em] md:text-5xl">{p.title}</h1>}
+        {!poster && p.original && <p className="mt-3 font-serif text-2xl italic text-muted-foreground">{p.original}</p>}
+        {!poster && <p className="mt-8 max-w-2xl text-lg leading-relaxed">{p.description}</p>}
+        <p className={`font-wide text-[10px] text-muted-foreground ${poster ? "" : "mt-4"}`}>My role — <span className="text-foreground">{p.role}</span></p>
         {p.link && (
           <a href={p.link} target="_blank" rel="noreferrer" className="mt-6 inline-block border-b border-ember pb-1 font-wide text-[10px] text-ember hover:text-foreground">View project ↗</a>
         )}
@@ -50,14 +61,16 @@ function Film() {
         )}
       </header>
       {p.youtubeUrl && <section className="mx-auto mt-20 max-w-6xl px-6"><YouTube url={p.youtubeUrl} title={p.title} poster={p.thumbnail} /></section>}
-      <Quote>{p.quote ?? p.title}</Quote>
-      <section className="mx-auto grid max-w-[1600px] gap-4 px-6 md:grid-cols-2 md:px-10">
-        {p.stills.slice(p.youtubeUrl ? 0 : 1).map((s, i) => (
-          <Reveal key={i} className={i === 0 ? "md:col-span-2" : ""}>
-            <img src={s} alt={`${p.title} still ${i + 1}`} loading="lazy" className="aspect-video w-full object-cover" />
-          </Reveal>
-        ))}
-      </section>
+      {p.quote && <Quote>{p.quote}</Quote>}
+      {p.stills.length > (p.youtubeUrl ? 0 : 1) && (
+        <section className="mx-auto grid max-w-[1600px] gap-4 px-6 md:grid-cols-2 md:px-10">
+          {p.stills.slice(p.youtubeUrl ? 0 : 1).map((s, i) => (
+            <Reveal key={i} className={i === 0 ? "md:col-span-2" : ""}>
+              <img src={s} alt={`${p.title} still ${i + 1}`} loading="lazy" className="aspect-video w-full object-cover" />
+            </Reveal>
+          ))}
+        </section>
+      )}
       <section className="mx-auto mt-24 max-w-5xl px-6">
         <h2 className="font-wide text-[11px] text-muted-foreground">Credits</h2>
         <dl className="mt-6 grid grid-cols-2 gap-4 text-sm">
