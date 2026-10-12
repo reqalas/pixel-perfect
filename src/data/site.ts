@@ -22,7 +22,8 @@ export const site = {
   phone: "+994 70 691 33 13",
   location: "Baku, Azerbaijan",
   cvUrl: "", // TODO: paste link to CV PDF (e.g. /cv.pdf placed in /public)
-  showreelUrl: "", // TODO: optional looping showreel .mp4
+  showreelUrl: "https://www.youtube.com/watch?v=tgTCf1eOVs4",
+  showreelStart: 54,
   socials: [
     { label: "Behance", href: "https://www.behance.net/seymurabdullah" },
     { label: "IMDb", href: "https://imdb.me/seymurabdullayev" },
