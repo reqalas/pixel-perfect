@@ -117,8 +117,11 @@ export function ProjectCard({ p, large = false }: { p: Project; large?: boolean 
   return (
     <Link to="/films/$slug" params={{ slug: p.slug }} className="group block">
       <div className={`relative overflow-hidden bg-card ${large ? "aspect-[16/9]" : "aspect-[4/3]"}`}>
-        <img src={p.thumbnail} alt={`${p.title} — still`} loading="lazy" className="h-full w-full object-cover opacity-80 transition duration-[1.2s] ease-out group-hover:scale-105 group-hover:opacity-100" />
+        {p.thumbnail
+          ? <img src={p.thumbnail} alt={`${p.title} — still`} loading="lazy" className="h-full w-full object-cover opacity-80 transition duration-[1.2s] ease-out group-hover:scale-105 group-hover:opacity-100" />
+          : <div className="absolute inset-0 bg-plate" />}
         <div className="absolute inset-0 bg-fade opacity-70" />
+        {p.comingSoon && <span className="absolute right-5 top-5 font-wide text-[9px] text-ember md:right-7 md:top-7">Coming soon</span>}
         <div className="absolute bottom-0 p-5 md:p-7">
           <p className="font-wide text-[9px] text-ember">{p.role}</p>
           <h3 className="mt-2 font-wide text-sm tracking-[0.2em] md:text-base">{p.title}</h3>

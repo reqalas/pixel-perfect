@@ -85,6 +85,13 @@
   background: var(--gradient-fade);
 }
 
+/* placeholder plate for a film with no cover image yet */
+@utility bg-plate {
+  background:
+    radial-gradient(90% 120% at 50% 118%, color-mix(in oklab, var(--ember) 18%, transparent) 0%, transparent 68%),
+    var(--gradient-fade);
+}
+
 @utility reveal {
   opacity: 0;
   transform: translateY(24px);
