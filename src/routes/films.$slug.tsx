@@ -42,14 +42,17 @@ function Film() {
         {p.original && <p className="mt-3 font-serif text-2xl italic text-muted-foreground">{p.original}</p>}
         <p className="mt-8 max-w-2xl text-lg leading-relaxed">{p.description}</p>
         <p className="mt-4 font-wide text-[10px] text-muted-foreground">My role — <span className="text-foreground">{p.role}</span></p>
+        {p.link && (
+          <a href={p.link} target="_blank" rel="noreferrer" className="mt-6 inline-block border-b border-ember pb-1 font-wide text-[10px] text-ember hover:text-foreground">View project ↗</a>
+        )}
         {p.awards.length > 0 && (
           <ul className="mt-6 space-y-1">{p.awards.map((a) => <li key={a} className="font-serif text-lg italic text-ember">✦ {a}</li>)}</ul>
         )}
       </header>
-      <section className="mx-auto mt-20 max-w-6xl px-6"><YouTube url={p.youtubeUrl} title={p.title} poster={p.thumbnail} /></section>
+      {p.youtubeUrl && <section className="mx-auto mt-20 max-w-6xl px-6"><YouTube url={p.youtubeUrl} title={p.title} poster={p.thumbnail} /></section>}
       <Quote>{p.quote ?? p.title}</Quote>
       <section className="mx-auto grid max-w-[1600px] gap-4 px-6 md:grid-cols-2 md:px-10">
-        {p.stills.map((s, i) => (
+        {p.stills.slice(p.youtubeUrl ? 0 : 1).map((s, i) => (
           <Reveal key={i} className={i === 0 ? "md:col-span-2" : ""}>
             <img src={s} alt={`${p.title} still ${i + 1}`} loading="lazy" className="aspect-video w-full object-cover" />
           </Reveal>

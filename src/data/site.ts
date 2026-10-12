@@ -6,6 +6,11 @@ import hero from "@/assets/hero.jpg";
 import portrait from "@/assets/portrait.jpg";
 import stillAnim from "@/assets/still-animation.jpg";
 import stillDoc from "@/assets/still-doc.jpg";
+import coverNovum from "@/assets/cover-novum.png.asset.json";
+import coverBalta from "@/assets/cover-balta.png.asset.json";
+import coverYerli from "@/assets/cover-yerli.png.asset.json";
+
+const yt = (id: string) => `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
 
 export const images = { hero, portrait, stillAnim, stillDoc };
 
@@ -42,7 +47,8 @@ export type Project = {
   role: string;
   description: string;
   quote?: string;
-  youtubeUrl: string;
+  youtubeUrl: string; // YouTube or Vimeo link
+  link?: string; // external project page (Behance, website)
   thumbnail: string;
   stills: string[];
   awards: string[];
@@ -61,40 +67,40 @@ export const projects: Project[] = [
   { slug: "balta", title: "Balta", year: "2018–2021", category: "animation", role: "2D Animator / Character Artist",
     description: "An animated project that grew into one of Azerbaijan's most recognised online series.",
     quote: "Small blade, sharp story.",
-    youtubeUrl: "", // TODO
-    thumbnail: A, stills: [A, H, A], awards: ["Netty Award 2019 — Best Online Video Project", "MilliNet Award 2018 — Best YouTube Project", "Official Selection — Animafilm 2021"] },
+    youtubeUrl: "", link: "https://balta.az/",
+    thumbnail: coverBalta.url, stills: [coverBalta.url], awards: ["Netty Award 2019 — Best Online Video Project", "MilliNet Award 2018 — Best YouTube Project", "Official Selection — Animafilm 2021"] },
   { slug: "yerli-istehza", title: "Yerli İstehza", year: "—", category: "animation", role: "Animator",
     description: "A satirical animated series holding a crooked mirror up to everyday life.",
-    youtubeUrl: "", // TODO
-    thumbnail: H, stills: [H, A], awards: [] },
+    youtubeUrl: "", link: "https://www.behance.net/gallery/110376931/YERL-STEHZA",
+    thumbnail: coverYerli.url, stills: [coverYerli.url], awards: [] },
   { slug: "novum", title: "Novum", year: "—", category: "animation", role: "Animator",
     description: "Animated visual content created for a video game world.",
-    youtubeUrl: "", // TODO
-    thumbnail: A, stills: [A, D], awards: [] },
+    youtubeUrl: "https://vimeo.com/560578912", link: "https://www.behance.net/gallery/121114553/NOVUM",
+    thumbnail: coverNovum.url, stills: [coverNovum.url], awards: [] },
   // --- DOCUMENTARY & FILM ---
   { slug: "the-first", title: "The First", original: "Birinci", year: "—", category: "documentary", role: "Motion Designer",
-    description: "A political-historical documentary.", youtubeUrl: "", thumbnail: D, stills: [D, H], awards: [] },
+    description: "A political-historical documentary.", youtubeUrl: "https://www.youtube.com/watch?v=yATngbnyDV0", thumbnail: yt("yATngbnyDV0"), stills: [yt("yATngbnyDV0")], awards: [] },
   { slug: "khojaly-speaks", title: "Khojaly Speaks", original: "Danışır Xocalı", year: "—", category: "documentary", role: "Motion Designer",
     description: "A war-testimony documentary giving voice to survivors.", quote: "Memory is the last witness.",
-    youtubeUrl: "", thumbnail: D, stills: [D, H], awards: [] },
+    youtubeUrl: "https://www.youtube.com/watch?v=FzQ19VxI5Gw", thumbnail: yt("FzQ19VxI5Gw"), stills: [yt("FzQ19VxI5Gw")], awards: [] },
   { slug: "narcotrap", title: "Narcotrap", original: "Narkotələ", year: "—", category: "documentary", role: "Editor / Motion Designer",
-    description: "A docudrama based on real anti-drug operations.", youtubeUrl: "", thumbnail: H, stills: [H, D], awards: [] },
+    description: "A docudrama based on real anti-drug operations.", youtubeUrl: "https://www.youtube.com/watch?v=LefXEZ4BefU", thumbnail: yt("LefXEZ4BefU"), stills: [yt("LefXEZ4BefU")], awards: [] },
   { slug: "vengeance", title: "Vengeance Didn't Wait for Judgment Day", original: "Qisas Qiyamətə Qalmadı", year: "—", category: "documentary", role: "Motion Designer",
-    description: "A political documentary.", youtubeUrl: "", thumbnail: D, stills: [D], awards: [] },
+    description: "A political documentary.", youtubeUrl: "https://www.youtube.com/watch?v=m-zgaO0tsQQ", thumbnail: yt("m-zgaO0tsQQ"), stills: [yt("m-zgaO0tsQQ")], awards: [] },
   { slug: "eagle-at-the-summit", title: "The Eagle at the Summit", original: "Qartal Zirvədə", year: "—", category: "documentary", role: "Motion Designer",
-    description: "A documentary on national identity.", youtubeUrl: "", thumbnail: H, stills: [H, D], awards: [] },
+    description: "A documentary on national identity.", youtubeUrl: "https://www.youtube.com/watch?v=L1to1Q_yWNU", thumbnail: yt("L1to1Q_yWNU"), stills: [yt("L1to1Q_yWNU")], awards: [] },
   { slug: "frontline-sudan", title: "Frontline: Sudan – Fight for Survival", year: "—", category: "documentary", role: "Motion Designer",
-    description: "A humanitarian documentary.", youtubeUrl: "", thumbnail: D, stills: [D], awards: [] },
+    description: "A humanitarian documentary.", youtubeUrl: "https://www.youtube.com/watch?v=W8KPWJkUD2w", thumbnail: yt("W8KPWJkUD2w"), stills: [yt("W8KPWJkUD2w")], awards: [] },
   // --- INTERNATIONAL ---
   { slug: "buried-stories", title: "Buried Stories: The Last Train East", year: "—", category: "international", role: "Motion Designer",
     description: "An international documentary following forgotten journeys.", quote: "Some tracks lead only one way.",
-    youtubeUrl: "", thumbnail: D, stills: [D, H], awards: [] },
+    youtubeUrl: "https://www.youtube.com/watch?v=lD0u7SIevfo", thumbnail: yt("lD0u7SIevfo"), stills: [yt("lD0u7SIevfo")], awards: [] },
   { slug: "shadow-of-the-cross", title: "Shadow of the Cross", year: "—", category: "international", role: "Motion Designer",
-    description: "An international documentary.", youtubeUrl: "", thumbnail: H, stills: [H], awards: [] },
+    description: "An international documentary.", youtubeUrl: "https://www.youtube.com/watch?v=9R_51vtcAhA", thumbnail: yt("9R_51vtcAhA"), stills: [yt("9R_51vtcAhA")], awards: [] },
   { slug: "belt-and-road", title: "China's Global Vision: Belt and Road Initiative", year: "—", category: "international", role: "Motion Designer",
-    description: "An international documentary on the Belt and Road Initiative.", youtubeUrl: "", thumbnail: D, stills: [D], awards: [] },
+    description: "An international documentary on the Belt and Road Initiative.", youtubeUrl: "https://www.youtube.com/watch?v=9ldBevJUaaY", thumbnail: yt("9ldBevJUaaY"), stills: [yt("9ldBevJUaaY")], awards: [] },
   { slug: "los-aviadores-de-ganja", title: "Los Aviadores de Ganja", year: "—", category: "international", role: "Motion Designer",
-    description: "An international documentary.", youtubeUrl: "", thumbnail: H, stills: [H, D], awards: [] },
+    description: "An international documentary.", youtubeUrl: "https://www.youtube.com/watch?v=d7vloI4zaBQ", thumbnail: yt("d7vloI4zaBQ"), stills: [yt("d7vloI4zaBQ")], awards: [] },
 ];
 
 export const featuredSlugs = ["birden-olsek", "balta", "khojaly-speaks", "buried-stories", "novum", "narcotrap"];
@@ -146,3 +152,4 @@ export const designWork = [
 ];
 
 export const youtubeId = (url: string) => url.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/)?.[1] ?? "";
+export const vimeoId = (url: string) => url.match(/vimeo\.com\/(?:video\/)?(\d+)/)?.[1] ?? "";

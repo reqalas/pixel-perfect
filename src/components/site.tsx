@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { site, youtubeId, type Project } from "@/data/site";
+import { site, youtubeId, vimeoId, type Project } from "@/data/site";
 
 const nav = [
   { to: "/profile", label: "Profile" },
@@ -130,14 +130,17 @@ export function ProjectCard({ p, large = false }: { p: Project; large?: boolean 
 
 export function YouTube({ url, title, poster }: { url: string; title: string; poster: string }) {
   const [play, setPlay] = useState(false);
-  const id = youtubeId(url);
+  const yid = youtubeId(url);
+  const vid = vimeoId(url);
+  const id = yid || vid;
+  const src = yid ? `https://www.youtube-nocookie.com/embed/${yid}?autoplay=1&rel=0` : `https://player.vimeo.com/video/${vid}?autoplay=1`;
   return (
     <div className="relative aspect-video overflow-hidden bg-card">
       {play && id ? (
-        <iframe className="absolute inset-0 h-full w-full" src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`} title={title} allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen />
+        <iframe className="absolute inset-0 h-full w-full" src={src} title={title} allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen />
       ) : (
         <button onClick={() => id && setPlay(true)} className="group absolute inset-0 h-full w-full" aria-label={id ? `Play ${title}` : "Video coming soon"} disabled={!id}>
-          <img src={id ? `https://i.ytimg.com/vi/${id}/maxresdefault.jpg` : poster} alt="" loading="lazy" className="h-full w-full object-cover opacity-60" />
+          <img src={yid ? `https://i.ytimg.com/vi/${yid}/maxresdefault.jpg` : poster} alt="" loading="lazy" className="h-full w-full object-cover opacity-60" />
           <span className="absolute inset-0 flex items-center justify-center">
             <span className="flex h-20 w-20 items-center justify-center rounded-full border border-foreground/40 transition group-hover:scale-110 group-hover:border-ember group-hover:text-ember">
               {id ? <svg viewBox="0 0 24 24" className="ml-1 h-6 w-6 fill-current"><path d="M8 5v14l11-7z" /></svg> : <span className="font-wide text-[8px]">Soon</span>}
