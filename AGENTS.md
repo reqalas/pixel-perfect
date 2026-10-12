@@ -11,3 +11,4 @@
 
 - All site content (projects, awards, contact, galleries) lives in src/data/site.ts so the owner edits one file.
 - Shared UI (header, footer, lightbox, YouTube click-to-play) lives in src/components/site.tsx to keep pages thin.
+- Home background playback uses the shared VideoBackground with URL and start time from site data; YouTube messaging keeps repeats at the configured start while a poster covers loading or playback failures.

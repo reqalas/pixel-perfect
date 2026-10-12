@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ProjectCard, Quote, Reveal, meta } from "@/components/site";
+import { ProjectCard, Quote, Reveal, VideoBackground, meta } from "@/components/site";
 import { awards, featuredSlugs, images, projects, site } from "@/data/site";
 
 export const Route = createFileRoute("/")({
@@ -8,12 +8,12 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const featured = featuredSlugs.map((s) => projects.find((p) => p.slug === s)!).filter(Boolean);
+  const featured = projects.filter((p) => featuredSlugs.includes(p.slug)).sort((a, b) => featuredSlugs.indexOf(a.slug) - featuredSlugs.indexOf(b.slug));
   return (
     <>
       <section className="relative h-[100svh] overflow-hidden">
         {site.showreelUrl ? (
-          <video src={site.showreelUrl} autoPlay muted loop playsInline poster={images.hero} className="absolute inset-0 h-full w-full object-cover" />
+          <VideoBackground url={site.showreelUrl} start={site.showreelStart} poster={images.hero} />
         ) : (
           <img src={images.hero} alt="Cinematic still overlooking Baku at dusk" width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover" />
         )}
