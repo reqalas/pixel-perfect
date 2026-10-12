@@ -16,7 +16,7 @@ function Originals() {
           <Reveal key={o.title}>
             <section className={`mx-auto grid max-w-[1600px] items-center gap-12 px-6 md:grid-cols-2 md:px-10 ${i % 2 ? "md:[&>*:first-child]:order-2" : ""}`}>
               <div className="relative overflow-hidden">
-                <img src={o.image} alt={`${o.title} concept art`} loading="lazy" className="aspect-[4/3] w-full object-cover opacity-60 blur-[1px] grayscale-[40%]" />
+                <img src={o.image} alt={`${o.title} key art`} loading="lazy" className="aspect-square w-full object-cover" />
                 <span className="absolute left-5 top-5 border border-ember px-3 py-1 font-wide text-[9px] text-ember">Coming Soon</span>
               </div>
               <div>
