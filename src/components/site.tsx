@@ -131,9 +131,8 @@ export function ProjectCard({ p, large = false }: { p: Project; large?: boolean 
   );
 }
 
-export function VideoBackground({ url, start, poster }: { url: string; start: number; poster: string }) {
+export function VideoBackground({ url, start }: { url: string; start: number }) {
   const frame = useRef<HTMLIFrameElement>(null);
-  const [playing, setPlaying] = useState(false);
   const id = youtubeId(url);
   const origin = "https://www.youtube.com";
 
@@ -155,13 +154,13 @@ export function VideoBackground({ url, start, poster }: { url: string; start: nu
         send("seekTo", [start, 1]);
         send("playVideo");
       }
-      if (data?.event === "onStateChange" && data.info === 1) setPlaying(true);
+      if (data?.event === "onStateChange" && data.info === 1) send("mute");
       if (data?.event === "onStateChange" && data.info === 0) {
         send("seekTo", [start, 1]);
         send("playVideo");
       }
       if (data?.event === "infoDelivery") {
-        if (data.info?.playerState === 1) setPlaying(true);
+        if (data.info?.playerState === 1) send("mute");
         // YouTube's native loop can return to zero; keep every repeat at the chosen start.
         if (typeof data.info?.currentTime === "number" && data.info.currentTime < start - 0.5) {
           send("seekTo", [start, 1]);
@@ -175,15 +174,14 @@ export function VideoBackground({ url, start, poster }: { url: string; start: nu
   }, [id, start]);
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-      <img src={poster} alt="" className="absolute inset-0 h-full w-full object-cover" />
+    <div className="pointer-events-none absolute inset-0 overflow-hidden bg-background" aria-hidden="true">
       {id && <iframe
         ref={frame}
         title="Seymur Abdullayev background showreel"
         src={`${origin}/embed/${id}?autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist=${id}&start=${start}&enablejsapi=1&rel=0&disablekb=1`}
         allow="autoplay; encrypted-media"
         tabIndex={-1}
-        className={`absolute left-1/2 top-1/2 h-[max(100svh,56.25vw)] w-[max(100vw,177.78svh)] -translate-x-1/2 -translate-y-1/2 border-0 transition-opacity duration-700 ${playing ? "opacity-100" : "opacity-0"}`}
+        className="absolute left-1/2 top-1/2 h-[max(100svh,56.25vw)] w-[max(100vw,177.78svh)] -translate-x-1/2 -translate-y-1/2 border-0"
       />}
     </div>
   );

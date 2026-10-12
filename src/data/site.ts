@@ -9,6 +9,7 @@ import stillDoc from "@/assets/still-doc.jpg";
 import coverNovum from "@/assets/cover-novum.png.asset.json";
 import coverBalta from "@/assets/cover-balta.png.asset.json";
 import coverYerli from "@/assets/cover-yerli.png.asset.json";
+import seherdenHekayeler from "@/assets/seherden-hekayeler.jpg.asset.json";
 
 const yt = (id: string) => `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
 
@@ -113,7 +114,7 @@ export const featuredSlugs = ["birden-olsek", "balta", "khojaly-speaks", "buried
 
 export const originals = [
   { title: "Şəhərdən Hekayələr", subtitle: "Stories from the City", role: "Creator / Director / Art Director", status: "In production",
-    logline: "An absurdist-humor animated series about the small madnesses of a big city.", image: H },
+    logline: "An absurdist-humor animated series about the small madnesses of a big city.", image: seherdenHekayeler.url },
   { title: "Maskarabaz", subtitle: "", role: "Writer / Director", status: "Pre-production",
     logline: "A philosophical animation series about the masks we wear — and who remains beneath them.", image: A },
 ];

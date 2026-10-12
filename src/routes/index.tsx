@@ -13,7 +13,7 @@ function Home() {
     <>
       <section className="relative h-[100svh] overflow-hidden">
         {site.showreelUrl ? (
-          <VideoBackground url={site.showreelUrl} start={site.showreelStart} poster={images.hero} />
+          <VideoBackground url={site.showreelUrl} start={site.showreelStart} />
         ) : (
           <img src={images.hero} alt="Cinematic still overlooking Baku at dusk" width={1920} height={1088} className="absolute inset-0 h-full w-full object-cover" />
         )}
