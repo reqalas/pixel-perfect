@@ -3,7 +3,7 @@
 // To add a video: paste a YouTube URL into `youtubeUrl`.
 // ============================================================
 import hero from "@/assets/hero.jpg";
-import portrait from "@/assets/portrait.jpg";
+import portrait from "@/assets/portrait.jpg.asset.json";
 import stillAnim from "@/assets/still-animation.jpg";
 import stillDoc from "@/assets/still-doc.jpg";
 import coverNovum from "@/assets/cover-novum.png.asset.json";
@@ -13,7 +13,7 @@ import seherdenHekayeler from "@/assets/seherden-hekayeler.jpg.asset.json";
 
 const yt = (id: string) => `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
 
-export const images = { hero, portrait, stillAnim, stillDoc };
+export const images = { hero, portrait: portrait.url, stillAnim, stillDoc };
 
 export const site = {
   name: "Seymur Abdullayev",

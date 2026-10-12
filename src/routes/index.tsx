@@ -52,7 +52,7 @@ function Home() {
       </section>
 
       <section className="mx-auto grid max-w-[1600px] items-center gap-12 px-6 pt-32 md:grid-cols-2 md:px-10">
-        <Reveal><img src={images.portrait} alt="Portrait of Seymur Abdullayev" loading="lazy" width={896} height={1152} className="aspect-[4/5] w-full max-w-md object-cover" /></Reveal>
+        <Reveal><img src={images.portrait} alt="Portrait of Seymur Abdullayev" loading="lazy" width={1440} height={1920} className="aspect-[3/4] w-full max-w-md object-cover" /></Reveal>
         <Reveal>
           <p className="font-serif text-3xl leading-snug md:text-4xl">Director, animator and screenwriter from Baku — founder of Piktolix, building room for creative freedom in Azerbaijani animation.</p>
           <Link to="/profile" className="mt-10 inline-block border-b border-ember pb-1 font-wide text-[10px] hover:text-ember">Profile</Link>
