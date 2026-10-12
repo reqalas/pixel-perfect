@@ -131,9 +131,8 @@ export function ProjectCard({ p, large = false }: { p: Project; large?: boolean 
   );
 }
 
-export function VideoBackground({ url, start, poster }: { url: string; start: number; poster: string }) {
+export function VideoBackground({ url, start }: { url: string; start: number }) {
   const frame = useRef<HTMLIFrameElement>(null);
-  const [playing, setPlaying] = useState(false);
   const id = youtubeId(url);
   const origin = "https://www.youtube.com";
 
