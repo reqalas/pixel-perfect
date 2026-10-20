@@ -6,7 +6,7 @@ export const Route = createFileRoute("/studio")({
   head: () => meta("Piktolix Studio — Seymur Abdullayev", "Piktolix Creative Studio, an animation studio founded in 2025 in Baku by Seymur Abdullayev."),
   component: () => (
     <>
-      <PageHero eyebrow="Studio · Founded 2025" title="Piktolix" intro="An animation studio focused on original, internationally-minded creative work, built to amplify creative freedom within the Azerbaijani animation industry." />
+      <PageHero eyebrow="Studio · Founded 2025" title="Piktolix" />
       <section className="mx-auto max-w-5xl px-6" aria-label="Piktolix Studio">
         <img src={studio.image} alt="Piktolix Studio logo" width={1920} height={1080} className="h-auto w-full" />
       </section>
