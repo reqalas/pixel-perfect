@@ -214,7 +214,7 @@ export function YouTube({ url, title, poster }: { url: string; title: string; po
 type GalleryItem = { src: string; caption: string };
 
 /** Arrow keys page through an open gallery; Esc closes it. */
-function useGalleryKeys(items: GalleryItem[], i: number | null, setI: (n: number | null) => void) {
+function useGalleryKeys(items: GalleryItem[], i: number | null, setI: Dispatch<SetStateAction<number | null>>) {
   useEffect(() => {
     if (i === null) return;
     const k = (e: KeyboardEvent) => {
