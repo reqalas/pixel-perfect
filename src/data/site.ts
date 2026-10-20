@@ -19,10 +19,19 @@ import layoutAustralia from "@/assets/design-layout-australia.png.asset.json";
 import costumeConcepts from "@/assets/design-costume-concepts.png.asset.json";
 import outfitVariations from "@/assets/design-outfit-variations.png.asset.json";
 import castLineup from "@/assets/design-cast-lineup.png.asset.json";
+import studioLogo from "@/assets/piktolix-studio.png.asset.json";
 
 const yt = (id: string) => `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
 
 export const images = { hero, portrait: portrait.url };
+
+export const studio = {
+  image: studioLogo.url,
+  channelUrl: "https://www.youtube.com/@Piktolix/videos",
+};
+
+export type StudioVideo = { id: string; title: string; thumbnail: string; publishedAt: string };
+export const studioVideos: StudioVideo[] = [];
 
 export const site = {
   name: "Seymur Abdullayev",
