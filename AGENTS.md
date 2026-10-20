@@ -11,4 +11,5 @@
 
 - All site content (projects, awards, contact, galleries) lives in src/data/site.ts so the owner edits one file.
 - Shared UI (header, footer, lightbox, YouTube click-to-play) lives in src/components/site.tsx to keep pages thin.
-- Home background playback uses the shared VideoBackground with URL and start time from site data; YouTube messaging keeps repeats at the configured start while a poster covers loading or playback failures.
+- Home background playback uses the shared VideoBackground with URL and start time from site data; YouTube messaging keeps every repeat at the configured start and forces the video to stay muted, with no poster image in front of it.
+- Portfolio artwork is never cropped: the Design gallery uses PlateGrid (justified rows that keep each plate's full framing at a shared row height) instead of Lightbox, whose fixed aspect tiles crop images.
