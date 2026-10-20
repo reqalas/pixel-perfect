@@ -9,6 +9,16 @@ import coverBalta from "@/assets/cover-balta.png.asset.json";
 import coverYerli from "@/assets/cover-yerli.png.asset.json";
 import seherdenHekayeler from "@/assets/seherden-hekayeler.jpg.asset.json";
 import maskarabaz from "@/assets/maskarabaz.jpg.asset.json";
+import visualDev from "@/assets/design-visual-dev.png.asset.json";
+import sceneCar from "@/assets/design-scene-car.png.asset.json";
+import titleCard from "@/assets/design-title-card.webp.asset.json";
+import longBeard from "@/assets/design-long-beard.png.asset.json";
+import storyboard from "@/assets/design-storyboard.png.asset.json";
+import sceneBurn from "@/assets/design-scene-burn.png.asset.json";
+import layoutAustralia from "@/assets/design-layout-australia.png.asset.json";
+import costumeConcepts from "@/assets/design-costume-concepts.png.asset.json";
+import outfitVariations from "@/assets/design-outfit-variations.png.asset.json";
+import castLineup from "@/assets/design-cast-lineup.png.asset.json";
 
 const yt = (id: string) => `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
 
@@ -140,7 +150,21 @@ export const press: { title: string; href: string }[] = []; // TODO: add press l
 
 export const motionWork: { src: string; caption: string }[] = []; // TODO: add real motion design stills
 
-export const designWork: { src: string; caption: string }[] = []; // TODO: add real design & character art
+// Design gallery — plates appear in this order, laid out in clean justified rows.
+export type DesignPlate = { src: string; caption: string; w: number; h: number };
+
+export const designWork: DesignPlate[] = [
+  { src: visualDev.url, caption: "Character & Background Development", w: 1800, h: 1698 },
+  { src: sceneCar.url, caption: "Animated Scene", w: 1920, h: 1081 },
+  { src: titleCard.url, caption: "Title Card", w: 1920, h: 967 },
+  { src: longBeard.url, caption: "Surreal Character", w: 1669, h: 939 },
+  { src: storyboard.url, caption: "Storyboard", w: 1393, h: 741 },
+  { src: sceneBurn.url, caption: "Animation Frame", w: 1269, h: 714 },
+  { src: layoutAustralia.url, caption: "Scene Layout", w: 1574, h: 776 },
+  { src: costumeConcepts.url, caption: "Costume Concepts", w: 1920, h: 1439 },
+  { src: outfitVariations.url, caption: "Outfit Variations", w: 1920, h: 1439 },
+  { src: castLineup.url, caption: "Cast Lineup", w: 1920, h: 1439 },
+];
 
 export const youtubeId = (url: string) => url.match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/)?.[1] ?? "";
 export const vimeoId = (url: string) => url.match(/vimeo\.com\/(?:video\/)?(\d+)/)?.[1] ?? "";
