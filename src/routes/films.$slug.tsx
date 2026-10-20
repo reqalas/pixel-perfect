@@ -20,6 +20,10 @@ export const Route = createFileRoute("/films/$slug")({
         { property: "og:type", content: "video.other" },
         { property: "og:url", content: `/films/${params.slug}` },
         { name: "twitter:card", content: "summary_large_image" },
+        ...(loaderData.p.thumbnail.startsWith("https://") ? [
+          { property: "og:image", content: loaderData.p.thumbnail },
+          { name: "twitter:image", content: loaderData.p.thumbnail },
+        ] : []),
       ],
       links: [{ rel: "canonical", href: `/films/${params.slug}` }],
     };

@@ -317,6 +317,33 @@ export function PlateGrid({ items, target = 3.6 }: { items: DesignPlate[]; targe
   );
 }
 
+export function StudioVideoGrid({ videos }: { videos: { id: string; title: string; thumbnail: string }[] }) {
+  return (
+    <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3" aria-label="Piktolix videos">
+      {videos.map((video) => (
+        <a
+          key={video.id}
+          href={`https://www.youtube.com/watch?v=${video.id}`}
+          target="_blank"
+          rel="noreferrer"
+          className="group block min-w-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ember"
+          aria-label={`Watch ${video.title} on YouTube`}
+        >
+          <div className="relative aspect-video bg-card">
+            <img src={video.thumbnail} alt={video.title} width={1280} height={720} loading="lazy" className="h-full w-full object-contain transition-opacity duration-500 group-hover:opacity-80" />
+            <span className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full border border-foreground/60 bg-background/70 text-foreground transition-colors group-hover:border-ember group-hover:text-ember">
+                <svg viewBox="0 0 24 24" className="ml-1 h-5 w-5 fill-current"><path d="M8 5v14l11-7z" /></svg>
+              </span>
+            </span>
+          </div>
+          <h3 className="mt-4 break-words text-sm leading-relaxed text-foreground transition-colors group-hover:text-ember">{video.title}</h3>
+        </a>
+      ))}
+    </div>
+  );
+}
+
 export const meta = (title: string, description: string) => ({
   meta: [
     { title },
