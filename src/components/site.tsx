@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { site, youtubeId, vimeoId, type Project } from "@/data/site";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { site, youtubeId, vimeoId, type DesignPlate, type Project } from "@/data/site";
 
 const nav = [
   { to: "/profile", label: "Profile" },
@@ -211,8 +211,10 @@ export function YouTube({ url, title, poster }: { url: string; title: string; po
   );
 }
 
-export function Lightbox({ items }: { items: { src: string; caption: string }[] }) {
-  const [i, setI] = useState<number | null>(null);
+type GalleryItem = { src: string; caption: string };
+
+/** Arrow keys page through an open gallery; Esc closes it. */
+function useGalleryKeys(items: GalleryItem[], i: number | null, setI: (n: number | null) => void) {
   useEffect(() => {
     if (i === null) return;
     const k = (e: KeyboardEvent) => {
@@ -221,7 +223,22 @@ export function Lightbox({ items }: { items: { src: string; caption: string }[] 
       if (e.key === "ArrowLeft") setI((v) => (v! - 1 + items.length) % items.length);
     };
     window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k);
-  }, [i, items.length]);
+  }, [i, items.length, setI]);
+}
+
+function GalleryModal({ items, i, onClose }: { items: GalleryItem[]; i: number; onClose: () => void }) {
+  return (
+    <div role="dialog" aria-modal="true" aria-label={items[i]!.caption} className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-overlay p-6 page-enter" onClick={onClose}>
+      <img src={items[i]!.src} alt={items[i]!.caption} className="max-h-[80vh] max-w-full object-contain" />
+      <p className="mt-6 font-wide text-[10px] text-muted-foreground">{items[i]!.caption} — {i + 1}/{items.length}</p>
+      <p className="mt-2 text-xs text-muted-foreground">← → to navigate · Esc to close</p>
+    </div>
+  );
+}
+
+export function Lightbox({ items }: { items: GalleryItem[] }) {
+  const [i, setI] = useState<number | null>(null);
+  useGalleryKeys(items, i, setI);
   return (
     <>
       <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
@@ -231,13 +248,71 @@ export function Lightbox({ items }: { items: { src: string; caption: string }[] 
           </button>
         ))}
       </div>
-      {i !== null && (
-        <div role="dialog" aria-modal="true" aria-label={items[i]!.caption} className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-overlay p-6 page-enter" onClick={() => setI(null)}>
-          <img src={items[i]!.src} alt={items[i]!.caption} className="max-h-[80vh] max-w-full object-contain" />
-          <p className="mt-6 font-wide text-[10px] text-muted-foreground">{items[i]!.caption} — {i + 1}/{items.length}</p>
-          <p className="mt-2 text-xs text-muted-foreground">← → to navigate · Esc to close</p>
-        </div>
-      )}
+      {i !== null && <GalleryModal items={items} i={i} onClose={() => setI(null)} />}
+    </>
+  );
+}
+
+/**
+ * Justified plate grid. Images keep their full, uncropped framing: each row is
+ * sized so every plate in it shares one height, and rows run in data order.
+ * `target` is how many average-wide images fit a row before it breaks.
+ */
+export function PlateGrid({ items, target = 3.6 }: { items: DesignPlate[]; target?: number }) {
+  const [i, setI] = useState<number | null>(null);
+  useGalleryKeys(items, i, setI);
+
+  const rows: { plate: DesignPlate; index: number; ratio: number }[][] = [];
+  let row: { plate: DesignPlate; index: number; ratio: number }[] = [];
+  let sum = 0;
+  items.forEach((plate, index) => {
+    const ratio = plate.w / plate.h;
+    row.push({ plate, index, ratio });
+    sum += ratio;
+    if (sum >= target) { rows.push(row); row = []; sum = 0; }
+  });
+  if (row.length) rows.push(row);
+
+  return (
+    <>
+      <div className="flex flex-col gap-4">
+        {rows.map((r, ri) => {
+          const fill = Math.min(1, r.reduce((a, x) => a + x.ratio, 0) / target);
+          return (
+            <div
+              key={ri}
+              className="flex flex-col gap-4 sm:max-w-[var(--fill)] sm:flex-row"
+              style={{ "--fill": `${(fill * 100).toFixed(2)}%` } as CSSProperties}
+            >
+              {r.map(({ plate, index, ratio }) => (
+                <button
+                  key={index}
+                  onClick={() => setI(index)}
+                  aria-label={`Open ${plate.caption}`}
+                  style={{ flexGrow: ratio }}
+                  className="group basis-auto min-w-0 overflow-hidden bg-card text-left sm:basis-0"
+                >
+                  <div className="relative">
+                    <img
+                      src={plate.src}
+                      alt={plate.caption}
+                      width={plate.w}
+                      height={plate.h}
+                      loading="lazy"
+                      className="h-auto w-full opacity-80 transition duration-[1.2s] ease-out group-hover:scale-[1.03] group-hover:opacity-100"
+                    />
+                    <div className="absolute inset-0 bg-fade opacity-0 transition-opacity duration-500 group-hover:opacity-80" />
+                    <span className="absolute bottom-4 left-4 font-wide text-[9px] text-ember opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                      {plate.caption}
+                    </span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          );
+        })}
+      </div>
+      {i !== null && <GalleryModal items={items} i={i} onClose={() => setI(null)} />}
     </>
   );
 }
