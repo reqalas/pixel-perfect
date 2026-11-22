@@ -14,7 +14,7 @@ function Films() {
       <div className="mx-auto max-w-[1600px] space-y-28 px-6 md:px-10">
         {categories.map((c) => (
           <section key={c.id} id={c.id}>
-            <h2 className="mb-10 font-wide text-[11px] text-ember">{c.label}</h2>
+            <h2 className="mb-10 font-label text-[15px] text-foreground">{c.label}</h2>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 md:gap-6">
               {projects.filter((p) => p.category === c.id).map((p) => (
                 <Reveal key={p.slug}><ProjectCard p={p} /></Reveal>

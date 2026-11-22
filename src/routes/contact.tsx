@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { PageHero, meta } from "@/components/site";
@@ -8,7 +9,7 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 
-const field = "w-full border-b border-border bg-transparent py-3 outline-none transition focus:border-ember placeholder:text-muted-foreground";
+const field = "w-full border-b border-border bg-transparent py-3 outline-none transition focus:border-foreground placeholder:text-muted-foreground";
 
 function Contact() {
   const [f, setF] = useState({ name: "", email: "", message: "" });
@@ -25,14 +26,14 @@ function Contact() {
           <label className="block"><span className="sr-only">Name</span><input required maxLength={100} placeholder="Name" className={field} value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} /></label>
           <label className="block"><span className="sr-only">Email</span><input required type="email" maxLength={255} placeholder="Email" className={field} value={f.email} onChange={(e) => setF({ ...f, email: e.target.value })} /></label>
           <label className="block"><span className="sr-only">Message</span><textarea required maxLength={2000} rows={5} placeholder="Message" className={field} value={f.message} onChange={(e) => setF({ ...f, message: e.target.value })} /></label>
-          <button className="border border-ember px-8 py-4 font-wide text-[10px] text-ember transition hover:bg-ember hover:text-primary-foreground">Send</button>
+          <Button variant="outline" className="border border-foreground px-8 py-4 font-label text-[15px] text-foreground transition hover:opacity-60">Send</Button>
         </form>
-        <div className="space-y-6 font-serif text-2xl md:text-3xl">
-          <a href={`mailto:${site.email}`} className="block break-all hover:text-ember">{site.email}</a>
-          <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="block hover:text-ember">{site.phone}</a>
+        <div className="space-y-6 font-sans text-2xl md:text-3xl">
+          <a href={`mailto:${site.email}`} className="block break-all hover:opacity-60">{site.email}</a>
+          <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="block hover:opacity-60">{site.phone}</a>
           <p className="text-muted-foreground">{site.location}</p>
           <div className="flex gap-6 pt-6">
-            {site.socials.map((s) => <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="font-wide text-[10px] hover:text-ember">{s.label}</a>)}
+            {site.socials.map((s) => <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="font-label text-[15px] hover:opacity-60">{s.label}</a>)}
           </div>
         </div>
       </section>

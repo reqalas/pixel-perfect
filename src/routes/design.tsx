@@ -11,7 +11,7 @@ export const Route = createFileRoute("/design")({
         {designWork.length > 0 ? (
           <PlateGrid items={designWork} />
         ) : (
-          <p className="font-wide text-[10px] text-muted-foreground">Gallery coming soon.</p>
+          <p className="font-label text-[15px] text-muted-foreground">Gallery coming soon.</p>
         )}
       </div>
     </>

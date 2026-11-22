@@ -12,8 +12,8 @@ export const Route = createFileRoute("/studio")({
       </section>
       <section className="mx-auto mt-16 max-w-[1600px] px-6 md:px-10" aria-labelledby="studio-videos-title">
         <div className="mb-8 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-t border-border pt-8">
-          <h2 id="studio-videos-title" className="min-w-0 font-wide text-sm">Videos</h2>
-          <a href={studio.channelUrl} target="_blank" rel="noreferrer" className="shrink-0 font-wide text-[10px] text-muted-foreground transition-colors hover:text-ember">YouTube ↗</a>
+          <h2 id="studio-videos-title" className="min-w-0 font-label text-sm">Videos</h2>
+          <a href={studio.channelUrl} target="_blank" rel="noreferrer" className="shrink-0 font-label text-[15px] text-muted-foreground transition-colors hover:opacity-60">YouTube ↗</a>
         </div>
         <StudioVideoGrid videos={studioVideos} />
       </section>
@@ -21,8 +21,8 @@ export const Route = createFileRoute("/studio")({
       <section className="mx-auto grid max-w-5xl gap-12 px-6 md:grid-cols-2">
         {[["Crambone", "2D Animator / Character Creator"], ["Artild Creative Agency", "Project Member / Designer"]].map(([n, r]) => (
           <div key={n} className="border-t border-border pt-6">
-            <p className="font-wide text-sm tracking-[0.2em]">{n}</p>
-            <p className="mt-2 font-serif text-xl italic text-muted-foreground">{r}</p>
+            <p className="font-label text-sm ">{n}</p>
+            <p className="mt-2 font-sans text-xl italic text-muted-foreground">{r}</p>
           </div>
         ))}
       </section>

@@ -1,3 +1,5 @@
+import { Film, Globe, Instagram, Menu, Palette, X, Youtube } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type CSSProperties, type Dispatch, type ReactNode, type SetStateAction } from "react";
 import { site, youtubeId, vimeoId, type DesignPlate, type Project } from "@/data/site";
@@ -13,72 +15,75 @@ const nav = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
+export function SocialIcons() {
+  return (
+    <div className="flex items-center justify-center gap-4" aria-label="Social links">
+      {site.socials.map((social) => {
+        const name = social.label.toLowerCase();
+        const Icon = name.includes("instagram") ? Instagram : name.includes("youtube") ? Youtube : name.includes("behance") ? Palette : name.includes("imdb") ? Film : Globe;
+        return <a key={social.label} href={social.href} target="_blank" rel="noreferrer" aria-label={social.label} title={social.label} className="social-link"><Icon size={17} strokeWidth={1.4} /></a>;
+      })}
+    </div>
+  );
+}
+
 export function Header() {
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const close = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
+    window.addEventListener("keydown", close);
+    return () => { document.body.style.overflow = previous; window.removeEventListener("keydown", close); };
+  }, [open]);
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-gradient-to-b from-background/90 to-transparent">
-      <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-6 md:px-10">
-        <Link to="/" className="font-wide text-[11px] leading-tight text-foreground" onClick={() => setOpen(false)}>
-          Seymur<br /><span className="text-muted-foreground">Abdullayev</span>
-        </Link>
-        <nav className="hidden gap-7 lg:flex" aria-label="Main">
-          {nav.map((n) => (
-            <Link key={n.to} to={n.to} className="font-wide text-[10px] text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "!text-ember" }}>
-              {n.label}
-            </Link>
-          ))}
-        </nav>
-        <button className="font-wide text-[10px] lg:hidden" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Toggle menu">
-          {open ? "Close" : "Menu"}
-        </button>
-      </div>
-      {open && (
-        <div className="fixed inset-0 top-[84px] z-40 flex flex-col items-center justify-center gap-6 bg-overlay backdrop-blur lg:hidden">
-          {nav.map((n) => (
-            <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="font-wide text-lg text-foreground hover:text-ember">
-              {n.label}
-            </Link>
-          ))}
+    <header className="site-header surface-paper">
+      <div className="header-inner">
+        <Link to="/" className="site-name" onClick={() => setOpen(false)}>Seymur Abdullayev</Link>
+        <div className="desktop-navigation">
+          <nav className="flex items-center gap-[22px]" aria-label="Main">
+            {nav.map((n) => <Link key={n.to} to={n.to} className="nav-link" activeProps={{ className: "nav-link is-active" }}>{n.label}</Link>)}
+          </nav>
+          <SocialIcons />
         </div>
-      )}
+        <Button variant="ghost" className="mobile-menu-toggle" onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="mobile-navigation" aria-label={open ? "Close menu" : "Menu"}>
+          {open ? <X size={20} /> : <Menu size={20} />}<span>{open ? "Close" : "Menu"}</span>
+        </Button>
+      </div>
+      {open && <div id="mobile-navigation" className="mobile-navigation surface-paper">
+        <nav aria-label="Mobile" className="flex flex-col items-center gap-5">
+          {nav.map((n) => <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="mobile-nav-link" activeProps={{ className: "mobile-nav-link is-active" }}>{n.label}</Link>)}
+        </nav>
+        <div className="mt-8"><SocialIcons /></div>
+      </div>}
     </header>
   );
 }
 
 export function Footer() {
   return (
-    <footer className="mt-32 border-t border-border px-6 py-16 md:px-10">
-      <div className="mx-auto grid max-w-[1600px] gap-12 md:grid-cols-3">
-        <div>
-          <p className="font-serif text-3xl italic">Stories in motion.</p>
-          <p className="mt-3 text-sm text-muted-foreground">{site.location}</p>
-        </div>
-        <div className="space-y-2 text-sm">
-          <a href={`mailto:${site.email}`} className="block hover:text-ember">{site.email}</a>
-          <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="block hover:text-ember">{site.phone}</a>
-          <div className="flex gap-5 pt-3">
-            {site.socials.map((s) => (
-              <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="font-wide text-[10px] text-muted-foreground hover:text-ember">{s.label}</a>
-            ))}
-          </div>
-        </div>
-        <Newsletter />
+    <footer className="site-footer surface-paper">
+      <SocialIcons />
+      <a href={`mailto:${site.email}`} className="mt-5 block break-all">{site.email}</a>
+      <div className="mt-3 flex flex-wrap justify-center gap-x-5 gap-y-2 text-muted-foreground">
+        <a href={`tel:${site.phone.replace(/\s/g, "")}`}>{site.phone}</a><span>{site.location}</span>
       </div>
-      <p className="mx-auto mt-16 max-w-[1600px] font-wide text-[9px] text-muted-foreground">© {new Date().getFullYear()} Seymur Abdullayev</p>
+      <p className="mt-5 text-sm text-muted-foreground">© {new Date().getFullYear()} Seymur Abdullayev</p>
     </footer>
   );
 }
 
-function Newsletter() {
+export function Newsletter() {
   const [done, setDone] = useState(false);
   return (
-    <form onSubmit={(e) => { e.preventDefault(); setDone(true); }}>
-      <p className="font-wide text-[10px] text-muted-foreground">Stay Connected</p>
-      {done ? <p className="mt-4 text-sm text-ember">Thank you — talk soon.</p> : (
-        <div className="mt-4 flex border-b border-border focus-within:border-ember">
+    <form onSubmit={(e) => { e.preventDefault(); setDone(true); }} className="mx-auto mt-12 w-full max-w-md">
+      <h2 className="newsletter-title">Stay Connected.</h2>
+      {done ? <p className="mt-5">Thank you — talk soon.</p> : (
+        <div className="newsletter-field surface-paper mt-5 flex">
           <label htmlFor="nl" className="sr-only">Email</label>
-          <input id="nl" type="email" required placeholder="Your email" className="w-full bg-transparent py-2 text-sm outline-none placeholder:text-muted-foreground" />
-          <button className="font-wide text-[10px] hover:text-ember">Join</button>
+          <input id="nl" type="email" required placeholder="Your email" className="min-w-0 flex-1 bg-transparent px-4 py-3 outline-none placeholder:text-muted-foreground" />
+          <Button type="submit" variant="outline" className="h-auto border-y-0 border-r-0 px-6">Subscribe</Button>
         </div>
       )}
     </form>
@@ -97,10 +102,10 @@ export function Reveal({ children, className = "" }: { children: ReactNode; clas
 
 export function PageHero({ eyebrow, title, intro }: { eyebrow: string; title: string; intro?: string }) {
   return (
-    <section className="mx-auto max-w-[1600px] px-6 pb-16 pt-40 md:px-10 md:pt-48">
-      <p className="font-wide text-[10px] text-ember">{eyebrow}</p>
-      <h1 className="mt-6 font-wide text-3xl leading-tight tracking-[0.18em] md:text-6xl">{title}</h1>
-      {intro && <p className="mt-8 max-w-2xl font-serif text-2xl leading-snug text-muted-foreground md:text-3xl">{intro}</p>}
+    <section className="mx-auto max-w-[1600px] page-heading px-6 pb-16 pt-20 md:px-10 md:pt-24">
+      <p className="font-label text-[10px] text-foreground">{eyebrow}</p>
+      <h1 className="mt-6 font-display text-3xl leading-tight  md:text-6xl">{title}</h1>
+      {intro && <p className="mt-8 max-w-2xl font-sans text-[15px] leading-relaxed text-muted-foreground">{intro}</p>}
     </section>
   );
 }
@@ -108,25 +113,20 @@ export function PageHero({ eyebrow, title, intro }: { eyebrow: string; title: st
 export function Quote({ children }: { children: ReactNode }) {
   return (
     <Reveal className="mx-auto max-w-5xl px-6 py-32 text-center md:py-44">
-      <p className="font-serif text-4xl italic leading-tight md:text-6xl">“{children}”</p>
+      <p className="font-sans text-3xl italic leading-snug md:text-4xl">“{children}”</p>
     </Reveal>
   );
 }
 
 export function ProjectCard({ p, large = false }: { p: Project; large?: boolean }) {
   return (
-    <Link to="/films/$slug" params={{ slug: p.slug }} className="group block">
-      <div className={`relative overflow-hidden bg-card ${large ? "aspect-[16/9]" : "aspect-[4/3]"}`}>
-        {p.thumbnail
-          ? <img src={p.thumbnail} alt={`${p.title} — still`} loading="lazy" className="h-full w-full object-cover opacity-80 transition duration-[1.2s] ease-out group-hover:scale-105 group-hover:opacity-100" />
-          : <div className="absolute inset-0 bg-plate" />}
-        <div className="absolute inset-0 bg-fade opacity-70" />
-        {p.comingSoon && <span className="absolute right-5 top-5 font-wide text-[9px] text-ember md:right-7 md:top-7">Coming soon</span>}
-        <div className="absolute bottom-0 p-5 md:p-7">
-          <p className="font-wide text-[9px] text-ember">{p.role}</p>
-          <h3 className="mt-2 font-wide text-sm tracking-[0.2em] md:text-base">{p.title}</h3>
-        </div>
+    <Link to="/films/$slug" params={{ slug: p.slug }} className="project-card block min-w-0">
+      <div className={`project-image bg-card ${large ? "aspect-video" : "aspect-[4/3]"}`}>
+        {p.thumbnail ? <img src={p.thumbnail} alt={`${p.title} — still`} loading="lazy" className="h-full w-full object-contain transition-opacity duration-500" /> : <div className="h-full w-full bg-card" />}
       </div>
+      <h3 className="mt-5 text-xl leading-snug md:text-2xl">{p.title}</h3>
+      <p className="mt-2 text-muted-foreground">{p.role}</p>
+      {p.comingSoon && <p className="mt-2 text-sm text-muted-foreground">Coming soon</p>}
     </Link>
   );
 }
@@ -181,7 +181,7 @@ export function VideoBackground({ url, start }: { url: string; start: number }) 
         src={`${origin}/embed/${id}?autoplay=1&mute=1&controls=0&playsinline=1&loop=1&playlist=${id}&start=${start}&enablejsapi=1&rel=0&disablekb=1`}
         allow="autoplay; encrypted-media"
         tabIndex={-1}
-        className="absolute left-1/2 top-1/2 h-[max(100svh,56.25vw)] w-[max(100vw,177.78svh)] -translate-x-1/2 -translate-y-1/2 border-0"
+        className="absolute inset-0 h-full w-full border-0"
       />}
     </div>
   );
@@ -194,18 +194,18 @@ export function YouTube({ url, title, poster }: { url: string; title: string; po
   const id = yid || vid;
   const src = yid ? `https://www.youtube-nocookie.com/embed/${yid}?autoplay=1&rel=0` : `https://player.vimeo.com/video/${vid}?autoplay=1`;
   return (
-    <div className="relative aspect-video overflow-hidden bg-card">
+    <div className="surface-cinema relative aspect-video overflow-hidden bg-card text-foreground">
       {play && id ? (
         <iframe className="absolute inset-0 h-full w-full" src={src} title={title} allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen />
       ) : (
-        <button onClick={() => id && setPlay(true)} className="group absolute inset-0 h-full w-full" aria-label={id ? `Play ${title}` : "Video coming soon"} disabled={!id}>
-          <img src={yid ? `https://i.ytimg.com/vi/${yid}/maxresdefault.jpg` : poster} alt="" loading="lazy" className="h-full w-full object-cover opacity-60" />
+        <Button variant="ghost" onClick={() => id && setPlay(true)} className="player-trigger group absolute inset-0 h-full w-full" aria-label={id ? `Play ${title}` : "Video coming soon"} disabled={!id}>
+          <img src={yid ? `https://i.ytimg.com/vi/${yid}/maxresdefault.jpg` : poster} alt={`${title} video cover`} loading="lazy" className="h-full w-full object-contain" />
           <span className="absolute inset-0 flex items-center justify-center">
-            <span className="flex h-20 w-20 items-center justify-center rounded-full border border-foreground/40 transition group-hover:scale-110 group-hover:border-ember group-hover:text-ember">
-              {id ? <svg viewBox="0 0 24 24" className="ml-1 h-6 w-6 fill-current"><path d="M8 5v14l11-7z" /></svg> : <span className="font-wide text-[8px]">Soon</span>}
+            <span className="flex h-20 w-20 items-center justify-center border border-foreground/40 transition-opacity group-hover:opacity-60">
+              {id ? <svg viewBox="0 0 24 24" className="ml-1 h-6 w-6 fill-current"><path d="M8 5v14l11-7z" /></svg> : <span className="font-label text-[8px]">Soon</span>}
             </span>
           </span>
-        </button>
+        </Button>
       )}
     </div>
   );
@@ -219,18 +219,20 @@ function useGalleryKeys(items: GalleryItem[], i: number | null, setI: Dispatch<S
     if (i === null) return;
     const k = (e: KeyboardEvent) => {
       if (e.key === "Escape") setI(null);
-      if (e.key === "ArrowRight") setI((v) => (v! + 1) % items.length);
-      if (e.key === "ArrowLeft") setI((v) => (v! - 1 + items.length) % items.length);
+      if (e.key === "ArrowRight") setI((v) => ((v ?? 0) + 1) % items.length);
+      if (e.key === "ArrowLeft") setI((v) => ((v ?? 0) - 1 + items.length) % items.length);
     };
     window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k);
   }, [i, items.length, setI]);
 }
 
 function GalleryModal({ items, i, onClose }: { items: GalleryItem[]; i: number; onClose: () => void }) {
+  const item = items[i];
+  if (!item) return null;
   return (
-    <div role="dialog" aria-modal="true" aria-label={items[i]!.caption} className="fixed inset-0 z-[60] flex flex-col items-center justify-center bg-overlay p-6 page-enter" onClick={onClose}>
-      <img src={items[i]!.src} alt={items[i]!.caption} className="max-h-[80vh] max-w-full object-contain" />
-      <p className="mt-6 font-wide text-[10px] text-muted-foreground">{items[i]!.caption} — {i + 1}/{items.length}</p>
+    <div role="dialog" aria-modal="true" aria-label={item.caption} className="gallery-modal fixed inset-0 z-[60] flex flex-col items-center justify-center bg-overlay p-6 page-enter" onClick={onClose}>
+      <img src={item.src} alt={item.caption} className="max-h-[80vh] max-w-full object-contain" />
+      <p className="mt-6 font-label text-[10px] text-muted-foreground">{item.caption} — {i + 1}/{items.length}</p>
       <p className="mt-2 text-xs text-muted-foreground">← → to navigate · Esc to close</p>
     </div>
   );
@@ -243,9 +245,9 @@ export function Lightbox({ items }: { items: GalleryItem[] }) {
     <>
       <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
         {items.map((it, idx) => (
-          <button key={idx} onClick={() => setI(idx)} className={`group mb-4 block w-full overflow-hidden text-left ${idx % 3 === 1 ? "aspect-[3/4]" : "aspect-video"}`}>
-            <img src={it.src} alt={it.caption} loading="lazy" className="h-full w-full object-cover opacity-80 transition duration-700 group-hover:scale-105 group-hover:opacity-100" />
-          </button>
+          <Button variant="ghost" key={idx} onClick={() => setI(idx)} className={`gallery-tile group mb-4 block w-full overflow-hidden text-left ${idx % 3 === 1 ? "aspect-[3/4]" : "aspect-video"}`}>
+            <img src={it.src} alt={it.caption} loading="lazy" className="h-full w-full object-contain transition-opacity duration-500 group-hover:opacity-60" />
+          </Button>
         ))}
       </div>
       {i !== null && <GalleryModal items={items} i={i} onClose={() => setI(null)} />}
@@ -285,12 +287,12 @@ export function PlateGrid({ items, target = 3.6 }: { items: DesignPlate[]; targe
               style={{ "--fill": `${(fill * 100).toFixed(2)}%` } as CSSProperties}
             >
               {r.map(({ plate, index, ratio }) => (
-                <button
+                <Button variant="ghost"
                   key={index}
                   onClick={() => setI(index)}
                   aria-label={`Open ${plate.caption}`}
                   style={{ flexGrow: ratio }}
-                  className="group basis-auto min-w-0 overflow-hidden bg-card text-left sm:basis-0"
+                  className="gallery-tile group basis-auto min-w-0 overflow-hidden bg-card text-left sm:basis-0"
                 >
                   <div className="relative">
                     <img
@@ -299,14 +301,14 @@ export function PlateGrid({ items, target = 3.6 }: { items: DesignPlate[]; targe
                       width={plate.w}
                       height={plate.h}
                       loading="lazy"
-                      className="h-auto w-full opacity-80 transition duration-[1.2s] ease-out group-hover:scale-[1.03] group-hover:opacity-100"
+                      className="h-auto w-full transition-opacity duration-500 group-hover:opacity-60"
                     />
-                    <div className="absolute inset-0 bg-fade opacity-0 transition-opacity duration-500 group-hover:opacity-80" />
-                    <span className="absolute bottom-4 left-4 font-wide text-[9px] text-ember opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                    
+                    <span className="absolute bottom-4 left-4 font-label text-[9px] text-foreground opacity-0 transition-opacity duration-500 group-hover:opacity-100">
                       {plate.caption}
                     </span>
                   </div>
-                </button>
+                </Button>
               ))}
             </div>
           );
@@ -326,18 +328,18 @@ export function StudioVideoGrid({ videos }: { videos: { id: string; title: strin
           href={`https://www.youtube.com/watch?v=${video.id}`}
           target="_blank"
           rel="noreferrer"
-          className="group block min-w-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ember"
+          className="group block min-w-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
           aria-label={`Watch ${video.title} on YouTube`}
         >
           <div className="relative aspect-video bg-card">
             <img src={video.thumbnail} alt={video.title} width={1280} height={720} loading="lazy" className="h-full w-full object-contain transition-opacity duration-500 group-hover:opacity-80" />
             <span className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full border border-foreground/60 bg-background/70 text-foreground transition-colors group-hover:border-ember group-hover:text-ember">
+              <span className="flex h-12 w-12 items-center justify-center border border-foreground/60 bg-background/70 text-foreground transition-opacity group-hover:opacity-60">
                 <svg viewBox="0 0 24 24" className="ml-1 h-5 w-5 fill-current"><path d="M8 5v14l11-7z" /></svg>
               </span>
             </span>
           </div>
-          <h3 className="mt-4 break-words text-sm leading-relaxed text-foreground transition-colors group-hover:text-ember">{video.title}</h3>
+          <h3 className="studio-video-title mt-4 break-words text-sm leading-relaxed text-foreground transition-colors group-hover:opacity-60">{video.title}</h3>
         </a>
       ))}
     </div>

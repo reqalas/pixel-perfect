@@ -92,7 +92,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,300..600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500&display=swap" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400&family=Playfair+Display:ital,wght@1,400&family=Jost:wght@200;300;400&display=swap" },
     ],
   }),
   shellComponent: RootShell,
@@ -122,7 +122,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Header />
-      <main key={path} className="page-enter">
+      <main key={path} className={`site-main page-enter ${path === "/profile" || path === "/contact" || path === "/awards" || (path.startsWith("/films/") && path !== "/films/") ? "surface-light" : "surface-cinema"}`}>
         <Outlet />
       </main>
       <Footer />

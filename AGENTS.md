@@ -14,3 +14,5 @@
 - Home background playback uses the shared VideoBackground with URL and start time from site data; YouTube messaging keeps every repeat at the configured start and forces the video to stay muted, with no poster image in front of it.
 - Portfolio artwork is never cropped: the Design gallery uses PlateGrid (justified rows that keep each plate's full framing at a shared row height) instead of Lightbox, whose fixed aspect tiles crop images.
 - Studio channel videos use a full, newest-first public upload snapshot in site data and the shared StudioVideoGrid; direct YouTube links avoid loading many embedded players at once.
+
+- Apply route surface themes in the root layout and shared typography in global CSS so monochrome styling stays consistent without changing centralized site content.
