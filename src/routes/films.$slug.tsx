@@ -33,6 +33,8 @@ export const Route = createFileRoute("/films/$slug")({
 function Film() {
   const { p, next } = Route.useLoaderData();
   const poster = !p.thumbnail;
+  // The video player already shows the cover, and a still that repeats it adds nothing.
+  const extraStills = p.stills.filter((s) => s !== p.thumbnail);
   return (
     <article>
       <header className="film-heading">
@@ -45,11 +47,11 @@ function Film() {
         {p.awards.length > 0 && <ul className="mt-6 space-y-1">{p.awards.map((a) => <li key={a} className="italic">✦ {a}</li>)}</ul>}
       </header>
       {p.youtubeUrl && <section className="film-media"><YouTube url={p.youtubeUrl} title={p.title} poster={p.thumbnail} /></section>}
-      {!poster && <div className="film-media mt-6"><img src={p.thumbnail} alt={`${p.title} cover`} className="film-cover" /></div>}
+      {!p.youtubeUrl && !poster && <div className="film-media mt-6"><img src={p.thumbnail} alt={`${p.title} cover`} className="film-cover" /></div>}
       {p.quote && <Quote>{p.quote}</Quote>}
-      {p.stills.length > (p.youtubeUrl ? 0 : 1) && (
+      {extraStills.length > 0 && (
         <section className="mx-auto mt-6 grid max-w-[1600px] gap-3 px-6 md:grid-cols-2 md:px-10">
-          {p.stills.slice(p.youtubeUrl ? 0 : 1).map((s, i) => (
+          {extraStills.map((s, i) => (
             <Reveal key={i} className={i === 0 ? "md:col-span-2" : ""}>
               <img src={s} alt={`${p.title} still ${i + 1}`} loading="lazy" className="h-auto w-full object-contain transition-opacity hover:opacity-60" />
             </Reveal>

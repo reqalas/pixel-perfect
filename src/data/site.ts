@@ -141,10 +141,10 @@ export type Project = {
 
 export const projects: Project[] = [
   // --- INTERNATIONAL PRODUCTIONS ---
-  { slug: "kontrapunkt", title: "Kontrapunkt", year: "Soon", category: "international", role: "Motion Designer",
+  { slug: "counterpoint", title: "Counterpoint", year: "2026", category: "international", role: "Motion Designer",
     description: "A new international production.",
-    youtubeUrl: "", // TODO: paste the link when the film is released
-    thumbnail: "", stills: [], awards: [], comingSoon: true },
+    youtubeUrl: "https://www.youtube.com/watch?v=NkZ2AjUdeOw",
+    thumbnail: yt("NkZ2AjUdeOw"), stills: [yt("NkZ2AjUdeOw")], awards: [] },
   { slug: "buried-stories", title: "Buried Stories: The Last Train East", year: "—", category: "international", role: "Motion Designer",
     description: "An international documentary following forgotten journeys.", quote: "Some tracks lead only one way.",
     youtubeUrl: "https://www.youtube.com/watch?v=lD0u7SIevfo", thumbnail: yt("lD0u7SIevfo"), stills: [yt("lD0u7SIevfo")], awards: [] },

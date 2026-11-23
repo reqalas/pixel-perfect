@@ -19,6 +19,7 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as StudioRouteImport } from './routes/studio'
 import { Route as FilmsIndexRouteImport } from './routes/films.index'
 import { Route as FilmsSlugRouteImport } from './routes/films.$slug'
+import { Route as FilmsKontrapunktRouteImport } from './routes/films.kontrapunkt'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -70,6 +71,11 @@ const FilmsSlugRoute = FilmsSlugRouteImport.update({
   path: '/films/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FilmsKontrapunktRoute = FilmsKontrapunktRouteImport.update({
+  id: '/films/kontrapunkt',
+  path: '/films/kontrapunkt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/profile': typeof ProfileRoute
   '/studio': typeof StudioRoute
   '/films/$slug': typeof FilmsSlugRoute
+  '/films/kontrapunkt': typeof FilmsKontrapunktRoute
   '/films/': typeof FilmsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -93,6 +100,7 @@ export interface FileRoutesByTo {
   '/profile': typeof ProfileRoute
   '/studio': typeof StudioRoute
   '/films/$slug': typeof FilmsSlugRoute
+  '/films/kontrapunkt': typeof FilmsKontrapunktRoute
   '/films': typeof FilmsIndexRoute
 }
 export interface FileRoutesById {
@@ -106,6 +114,7 @@ export interface FileRoutesById {
   '/profile': typeof ProfileRoute
   '/studio': typeof StudioRoute
   '/films/$slug': typeof FilmsSlugRoute
+  '/films/kontrapunkt': typeof FilmsKontrapunktRoute
   '/films/': typeof FilmsIndexRoute
 }
 export interface FileRouteTypes {
@@ -120,6 +129,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/studio'
     | '/films/$slug'
+    | '/films/kontrapunkt'
     | '/films/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -132,6 +142,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/studio'
     | '/films/$slug'
+    | '/films/kontrapunkt'
     | '/films'
   id:
     | '__root__'
@@ -144,6 +155,7 @@ export interface FileRouteTypes {
     | '/profile'
     | '/studio'
     | '/films/$slug'
+    | '/films/kontrapunkt'
     | '/films/'
   fileRoutesById: FileRoutesById
 }
@@ -157,6 +169,7 @@ export interface RootRouteChildren {
   ProfileRoute: typeof ProfileRoute
   StudioRoute: typeof StudioRoute
   FilmsSlugRoute: typeof FilmsSlugRoute
+  FilmsKontrapunktRoute: typeof FilmsKontrapunktRoute
   FilmsIndexRoute: typeof FilmsIndexRoute
 }
 
@@ -232,6 +245,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FilmsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/films/kontrapunkt': {
+      id: '/films/kontrapunkt'
+      path: '/films/kontrapunkt'
+      fullPath: '/films/kontrapunkt'
+      preLoaderRoute: typeof FilmsKontrapunktRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -245,6 +265,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileRoute: ProfileRoute,
   StudioRoute: StudioRoute,
   FilmsSlugRoute: FilmsSlugRoute,
+  FilmsKontrapunktRoute: FilmsKontrapunktRoute,
   FilmsIndexRoute: FilmsIndexRoute,
 }
 export const routeTree = rootRouteImport
